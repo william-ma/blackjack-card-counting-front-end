@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import SubmitForm from './SubmitPage.js'
+import ResultsPage from './ResultsPage.js'
 
 class Pages {
     static Play = new Pages("play");
@@ -35,9 +36,8 @@ class Game extends React.Component {
         this.setState({page: Pages.Results});
     }
 
-    handleClickNewChallenge(event) {
-        alert('count: ' + event.target.running_count.value);
-        event.preventDefault();
+    handleClickNewChallenge(e) {
+        e.preventDefault();
         // Make API call...
         // Wait for results...
         // Then display appropiate page?
@@ -54,13 +54,15 @@ class Game extends React.Component {
     }
 
     render() {
-        let page = <SubmitForm onClick={this.handleClickSubmit} />;
+        let page;
         switch (this.state.page) {
             case Pages.Submit:
+                console.log("Showing SubmitForm");
                 page = <SubmitForm onClick={this.handleClickSubmit} />
                 break;
             case Pages.Results:
-                console.log("Showing results page");
+                console.log("Showing ResultsPage");
+                page = <ResultsPage value="Anything" onClick={this.handleClickNewChallenge} />
                 break;
             case Pages.Play:
                 console.log("Showing play page");

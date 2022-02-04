@@ -12,21 +12,21 @@ class SubmitForm extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleClick(event) {
-        let runningCount = event.target.running_count.value;
-        let trueCount = event.target.true_count.value;
+    handleClick(e) {
+        e.preventDefault();
+        let runningCount = e.target.running_count.value;
+        let trueCount = e.target.true_count.value;
         let strategy = this.state.strategy;
         this.props.onClick(runningCount, trueCount, strategy);
-        event.preventDefault();
     }
 
-    handleChange(event) {
-        this.setState({strategy: event.target.value});
+    handleChange(e) {
+        this.setState({strategy: e.target.value});
     }
 
     render() {
         return (
-            <form onSubmit={this.handleClick}>
+            <form onSubmit={(e) => this.handleClick(e)}>
                 <label>
                     Running Count:<br/>
                     <input type="number" name="running_count" />
@@ -45,7 +45,7 @@ class SubmitForm extends React.Component {
                     </select>
                 </label>
                 <br/>
-                <input type="submit" value="Submit" />
+                <button type="submit">Submit</button>
             </form>
         );
     }
