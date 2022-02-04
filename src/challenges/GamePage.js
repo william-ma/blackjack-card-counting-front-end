@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SubmitForm from './SubmitPage.js'
 import ResultsPage from './ResultsPage.js'
+import PlayPage from './PlayPage.js'
 
 class Pages {
     static Play = new Pages("play");
@@ -18,7 +19,8 @@ class Game extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            page: Pages.Submit
+            page: Pages.Submit,
+            challenge: null
         };
 
         this.handleClickSubmit = this.handleClickSubmit.bind(this);
@@ -26,10 +28,19 @@ class Game extends React.Component {
         this.handleClickLastCard = this.handleClickLastCard.bind(this);
     }
 
+    componentDidMount() {
+
+    }
+
+    componentWillUnmount() {
+
+    }
+
     handleClickSubmit(runningCount, trueCount, strategy) {
         console.log("running: " + runningCount);
         console.log("true: " + trueCount);
         console.log("strategy: " + strategy);
+
         // Make API call...
         // Wait for results...
         // pass the results into Results somehow?
@@ -38,18 +49,12 @@ class Game extends React.Component {
 
     handleClickNewChallenge(e) {
         e.preventDefault();
-        // Make API call...
-        // Wait for results...
-        // Then display appropiate page?
+        // API call to get the challenge
+        // Pass that challenge
         this.setState({page: Pages.Play});
     }
 
-    handleClickLastCard(event) {
-        alert('count: ' + event.target.running_count.value);
-        event.preventDefault();
-        // Make API call...
-        // Wait for results...
-        // Then display appropiate page?
+    handleClickLastCard() {
         this.setState({page: Pages.Submit});
     }
 
@@ -66,6 +71,7 @@ class Game extends React.Component {
                 break;
             case Pages.Play:
                 console.log("Showing play page");
+                page = <PlayPage challenge={this.state.challenge} onClick={this.handleClickLastCard} />
                 break;
         }
 
