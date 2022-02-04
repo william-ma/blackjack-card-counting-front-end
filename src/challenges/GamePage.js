@@ -37,14 +37,20 @@ class Game extends React.Component {
     }
 
     handleClickSubmit(runningCount, trueCount, strategy) {
-        console.log("running: " + runningCount);
-        console.log("true: " + trueCount);
-        console.log("strategy: " + strategy);
-
-        // Make API call...
-        // Wait for results...
-        // pass the results into Results somehow?
-        this.setState({page: Pages.Results});
+//        const response = fetch("/api/challenges/submit/" + this.state.challenge.id, {
+        const response = fetch("http://localhost:8080/api/challenges/submit/1", {
+            method: 'POST',
+            body: {
+                running_count: runningCount,
+                true_count: trueCount,
+                strategy: strategy
+            }
+        });
+        console.log(response.body);
+        this.setState({
+            page: Pages.Results,
+            results: true
+        });
     }
 
     handleClickNewChallenge(e) {
@@ -67,7 +73,7 @@ class Game extends React.Component {
                 break;
             case Pages.Results:
                 console.log("Showing ResultsPage");
-                page = <ResultsPage value="Anything" onClick={this.handleClickNewChallenge} />
+                page = <ResultsPage value={this.state.results} onClick={this.handleClickNewChallenge} />
                 break;
             case Pages.Play:
                 console.log("Showing play page");
