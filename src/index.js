@@ -5,10 +5,12 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import SubmitForm from './challenges/SubmitPage.js'
 import Game from './challenges/GamePage.js'
+import Table from './roulette/Table.js'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Game />
+//    <Game />
+    <Table />
   </React.StrictMode>,
   document.getElementById('root')
 );
